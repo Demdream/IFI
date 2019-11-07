@@ -13,6 +13,7 @@
    <% stock.add( new Produit( 14 , "BIC", 2, 20 )); 
     stock.add( new Produit( 20 , "CRAYON", 2, 20 ));
     stock.add( new Produit( 35 , "STYLO", 2, 20 ));
+    stock.add( new Produit( 25 , "PILOT", 2, 15 ));
    
 %>
 
