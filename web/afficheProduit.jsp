@@ -12,9 +12,9 @@
 <%!
     ArrayList<Produit> stock = new ArrayList<>();%>
    <% 
-    stock.add( new Produit( 14 , "Samsung Galaxy S10+", 1000, 20, "Samsung.jpg" )); 
-    stock.add( new Produit( 20 , "Apple iPhone X", 899, 20, "iphone.jpg" ));
-    stock.add( new Produit( 35 , "Huawei P30 Pro", 649, 20, "Huawei.jpg" )); 
+    stock.add( new Produit( 14 , "Samsung Galaxy S10+", 1000, 20, "Samsung.jpg" , "Ajouter au panier" )); 
+    stock.add( new Produit( 20 , "Apple iPhone X", 899, 20, "iphone.jpg", "Ajouter au panier" ));
+    stock.add( new Produit( 35 , "Huawei P30 Pro", 649, 20, "Huawei.jpg", "Ajouter au panier" )); 
 %>
 
         
@@ -37,11 +37,12 @@
         <table>
             <thead>
                 <tr>
-                    <th></th>
+                    <th>Image</th>
                     <th>Reference</th>
                     <th>Nom</th>
                     <th>Prix</th>
                     <th>Quantite</th>
+                    <th></th>
                     
                 </tr>
                 
@@ -59,6 +60,7 @@
                     <td><%=stock.get(i).getNom()%></td>
                     <td><%=stock.get(i).getPrix()%></td>
                     <td><%=stock.get(i).getQuantite()%></td>
+                    <td><%=stock.get(i).getPanier()%></td>
                 </tr>
                 
                 <%}%>
