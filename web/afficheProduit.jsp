@@ -24,9 +24,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="newcss.css" /> 
         <title>JSP Page</title>
-        
-   
+     <style>   
+   body {
+  background-color: lightblue;
+}
+</style>
     </head>
+    
     <body>
        
         <center><h1>Vente de téléphone en ligne</h1>
@@ -60,14 +64,16 @@
                     <td><%=stock.get(i).getNom()%></td>
                     <td><%=stock.get(i).getPrix()%></td>
                     <td><%=stock.get(i).getQuantite()%></td>
-                    <td><%=stock.get(i).getPanier()%></td>
+                    <td> <INPUT TYPE="BUTTON" VALUE="Ajouter au panier" ONCLICK="button1()"></td>
                 </tr>
                 
                 <%}%>
             </tbody>
             
         </table>
-        
+            <br></br>
+            <INPUT TYPE="BUTTON" VALUE="Passer la commande" ONCLICK="button2()">
+            
         
         
     </body>
