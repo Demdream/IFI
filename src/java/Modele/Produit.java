@@ -10,9 +10,6 @@ public class Produit {
     private double prix;
     private int quantite;
     private String image;
-    private String panier;
-    
-    private final ArrayList<Produit> stock;
     
 
     public Produit(int ref, String nom, double prix, int quantite, String image, String panier) {
@@ -21,9 +18,6 @@ public class Produit {
         this.prix = prix;
         this.quantite = quantite;
         this.image = image;
-        this.panier = panier;
-        this.stock = new ArrayList<>();
-   
     }
 
     
@@ -31,7 +25,7 @@ public class Produit {
     
     @Override
     public String toString() {
-        return "Produit{" + "ref=" + ref + ", nom=" + nom + ", prix=" + prix + ", quantite=" + quantite + ", image=" + image + ", panier=" + panier + '}';
+        return "Produit{" + "ref=" + ref + ", nom=" + nom + ", prix=" + prix + ", quantite=" + quantite + ", image=" + image + '}';
     }
 
     public String getNom() {
@@ -72,12 +66,5 @@ public String getImage() {
 
     public void setImage(String image) {
         this.image = image;
-    } 
-public String getPanier() {
-        return panier;
-    }
-
-    public void setPanier(String panier) {
-        this.panier = panier;
     } 
 }

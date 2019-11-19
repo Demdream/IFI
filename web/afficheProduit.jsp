@@ -1,23 +1,35 @@
-<%-- 
-    Document   : afficheProduit
-    Created on : 30 oct. 2019, 16:26:59
-    Author     : GLZK2747
---%>
 
+<%@page import="Modele.Panier"%>
+<%@page import="Modele.Stock"%>
 <%@page import="Modele.Produit"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="stockSession" class="Modele.Stock" scope="session" ></jsp:useBean>>
+<jsp:useBean id="panierSession" class="Modele.Panier" scope="session" ></jsp:useBean> 
 
 
-<%!
-    ArrayList<Produit> stock = new ArrayList<>();%>
-   <% 
-    stock.add( new Produit( 14 , "Samsung Galaxy S10+", 1000, 20, "Samsung.jpg" , "Ajouter au panier" )); 
-    stock.add( new Produit( 20 , "Apple iPhone X", 899, 20, "iphone.jpg", "Ajouter au panier" ));
-    stock.add( new Produit( 35 , "Huawei P30 Pro", 649, 20, "Huawei.jpg", "Ajouter au panier" )); 
-%>
 
-        
+ <%! 
+       Panier panier = new Panier();
+       Stock stock = new Stock();%>
+ 
+<%        if (request.getParameter("reference") != null){
+              int ref = Integer.parseInt(request.getParameter("reference"));
+              panier = (Panier)session.getAttribute("panierSession");
+              panier.ajouterAuPanier(ref);
+              session.setAttribute("panierSession", panier);
+           }
+    
+          if ( request.getParameter("panier") != null){
+              panier = (Panier)session.getAttribute("panierSession");
+              stock = (Stock)session.getAttribute("stockSession");
+              stock.modifierStock(panier);
+              panier = new Panier ();
+              session.setAttribute("panierSession", panier);     
+           }
+ %>
+ 
+ 
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,8 +49,9 @@
         <center><h2> Liste des téléphones disponibles:</h2>
        
             
-     
+           
         <table>
+            <%=panier%>
             <thead>
                 <tr>
                     <th>Image</th>
@@ -55,26 +68,36 @@
             <tbody>
                 
 
-                <% for ( int i = 0; i< stock.size(); i++){%>
+                <% 
+                  Stock stock = (Stock)session.getAttribute("stockSession");                 
+                  for ( int i = 0; i< stock.getListeProduit().size(); i++){%>
                 
                 <tr> 
 
-                    <td><img src=<%="photos/" + stock.get(i).getImage()%> </td>                   
-                    <td><%=stock.get(i).getRef()%></td>
-                    <td><%=stock.get(i).getNom()%></td>
-                    <td><%=stock.get(i).getPrix()%></td>
-                    <td><%=stock.get(i).getQuantite()%></td>
-                    <td> <INPUT TYPE="BUTTON" VALUE="Ajouter au panier" ONCLICK="button1()"></td>
-                </tr>
+                    <td><img src=<%="photos/" + stock.getListeProduit().get(i).getImage()%> </td>                   
+                    <td><%=stock.getListeProduit().get(i).getRef()%></td>
+                    <td><%=stock.getListeProduit().get(i).getNom()%></td>
+                    <td><%=stock.getListeProduit().get(i).getPrix()%></td>
+                    <td><%=stock.getListeProduit().get(i).getQuantite()%></td>
+            
+                <form action="afficheProduit.jsp" method="POST">
+                    <input type="hidden" value="<%=stock.getListeProduit().get(i).getRef()%>" name="reference">
                 
+                    <td> <INPUT TYPE="submit" VALUE="Ajouter au panier"></td>
+                </form>
+                </tr>
+            
                 <%}%>
             </tbody>
             
         </table>
-            <br></br>
-            <INPUT TYPE="BUTTON" VALUE="Passer la commande" ONCLICK="button2()">
             
-        
+            <br></br>
+                 <form action="afficheProduit.jsp" method="POST">
+                     <INPUT TYPE="hidden" VALUE="<%=true%>" name="panier">
+                     <td> <INPUT TYPE="submit" VALUE="Passer la commande"></td>
+                 </form>
+
         
     </body>
 </html>
