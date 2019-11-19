@@ -3,6 +3,7 @@ package Modele;
 
 import java.util.ArrayList;
 
+// On définit la classe Produit 
 public class Produit {
     
     private int ref;
@@ -11,9 +12,9 @@ public class Produit {
     private int quantite;
     private String image;
     
-
+   // méthode 
     public Produit(int ref, String nom, double prix, int quantite, String image, String panier) {
-        this.ref = ref;
+        this.ref = ref; // variable de classe = variable en paramètre du constructeur
         this.nom = nom;
         this.prix = prix;
         this.quantite = quantite;

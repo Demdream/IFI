@@ -1,6 +1,12 @@
 
 package Modele;
 
+// Cette classe va nous permettre de représenter un produit dans le panier  
+//avec sa référence ( indiqué dans le tableau )et la quantité que l'utilisateur veut 
+//acheter ( si il appuie une seule fois sur ajouter pannier du coup la quantité va être 1
+// si 2 fois la quantité va être 2 et ainsi de suite
+
+
 public class ItemPanier {
     
     private int ref;

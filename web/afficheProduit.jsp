@@ -7,19 +7,25 @@
 <jsp:useBean id="stockSession" class="Modele.Stock" scope="session" ></jsp:useBean>>
 <jsp:useBean id="panierSession" class="Modele.Panier" scope="session" ></jsp:useBean> 
 
-
-
  <%! 
        Panier panier = new Panier();
        Stock stock = new Stock();%>
  
-<%        if (request.getParameter("reference") != null){
-              int ref = Integer.parseInt(request.getParameter("reference"));
+                     <%-- Première session quand l'utilisateur clique sur le bouton ajouter panier, on dit qu'il doit faire
+                     appel à la méthode ajouter panier qui existe dans la classe Panier
+                     Deuxième session quand l'utilisateur clique sur le bouton passer commande
+                     on lui dit qu'il doit faire appel à la méthode modifier stock qui existe dans la classe Stock
+                     et mettre le panier qui existe dans la session panier à 0--%>
+<%       
+    
+              if (request.getParameter("reference") != null){
+              int ref = Integer.parseInt(request.getParameter("reference")); 
+              
               panier = (Panier)session.getAttribute("panierSession");
               panier.ajouterAuPanier(ref);
               session.setAttribute("panierSession", panier);
            }
-    
+                    
           if ( request.getParameter("panier") != null){
               panier = (Panier)session.getAttribute("panierSession");
               stock = (Stock)session.getAttribute("stockSession");
