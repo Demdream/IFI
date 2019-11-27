@@ -7,9 +7,12 @@
 <jsp:useBean id="stockSession" class="Modele.Stock" scope="session" ></jsp:useBean>>
 <jsp:useBean id="panierSession" class="Modele.Panier" scope="session" ></jsp:useBean> 
 
+
  <%! 
        Panier panier = new Panier();
-       Stock stock = new Stock();%>
+       Stock stock = new Stock();
+       boolean affichePopUp = false ;
+ %>
  
                      <%-- Première session quand l'utilisateur clique sur le bouton ajouter panier, on dit qu'il doit faire
                      appel à la méthode ajouter panier qui existe dans la classe Panier
@@ -20,12 +23,22 @@
     
               if (request.getParameter("reference") != null){
               int ref = Integer.parseInt(request.getParameter("reference")); 
-              
+             
               panier = (Panier)session.getAttribute("panierSession");
-              panier.ajouterAuPanier(ref);
-              session.setAttribute("panierSession", panier);
-           }
-                    
+              stock = (Stock)session.getAttribute("stockSession");
+    //lorsque je clique sur le boutton ajouter au panier je récupère la référence du produit ensuite je récupère le panier et le stock qui se trouve dans la seesion 
+    // je vérifie que mon produit est bien disponible dans le stock  si c'est oui il l'ajoute sinon il affiche le POPUP
+    
+              boolean produitDisponible  = panier.verifierDisponibiliteProduit(ref , stock);
+              if ( produitDisponible ){
+                panier.ajouterAuPanier(ref);
+              session.setAttribute("panierSession", panier);  
+              }
+              else { 
+                  affichePopUp = true; 
+              }
+              }
+      // quand je clique sur le bouton passer la commande, il mets à jour le stock et il vide le panier dans la session          
           if ( request.getParameter("panier") != null){
               panier = (Panier)session.getAttribute("panierSession");
               stock = (Stock)session.getAttribute("stockSession");
@@ -90,6 +103,13 @@
                     <input type="hidden" value="<%=stock.getListeProduit().get(i).getRef()%>" name="reference">
                 
                     <td> <INPUT TYPE="submit" VALUE="Ajouter au panier"></td>
+                    
+                    <% if (affichePopUp) {  // javascript%>
+                         <script> alert("Le produit n'est plus disponible"); </script>  
+                    <% }
+
+                    affichePopUp =false;%> 
+                
                 </form>
                 </tr>
             
@@ -104,6 +124,5 @@
                      <td> <INPUT TYPE="submit" VALUE="Passer la commande"></td>
                  </form>
 
-        
     </body>
 </html>

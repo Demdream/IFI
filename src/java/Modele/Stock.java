@@ -9,9 +9,9 @@ public class Stock {
 
     public Stock() {
     listeProduit = new ArrayList<>();  
-    listeProduit.add( new Produit( 14 , "Samsung Galaxy S10+", 1000, 20, "Samsung.jpg" , "Ajouter au panier" )); 
-    listeProduit.add( new Produit( 20 , "Apple iPhone X", 899, 20, "iphone.jpg", "Ajouter au panier" ));
-    listeProduit.add( new Produit( 35 , "Huawei P30 Pro", 649, 20, "Huawei.jpg", "Ajouter au panier" )); 
+    listeProduit.add( new Produit( 14 , "Samsung Galaxy S10+", 1000, 2, "Samsung.jpg" , "Ajouter au panier" )); 
+    listeProduit.add( new Produit( 20 , "Apple iPhone X", 899, 2, "iphone.jpg", "Ajouter au panier" ));
+    listeProduit.add( new Produit( 35 , "Huawei P30 Pro", 649, 2, "Huawei.jpg", "Ajouter au panier" )); 
         
     }
       
@@ -27,7 +27,9 @@ public class Stock {
       return null;  
     } 
      
-    public void modifierStock (Panier panier){
+     
+       
+     public void modifierStock (Panier panier){
           
         for (int i = 0; i < panier.getItems().size(); i++){
             ItemPanier item = panier.getItems().get(i);
@@ -35,6 +37,7 @@ public class Stock {
             int indexProduitCorrespondant = this.listeProduit.indexOf(produitCorrespondant);
             produitCorrespondant.setQuantite(produitCorrespondant.getQuantite() - item.getQuantite());
             this.listeProduit.set(indexProduitCorrespondant, produitCorrespondant);
+            
            // il parcourt le panier récupère le item panier qui contient la référance
             //et la quantité, il cherche ensuite dans le tableau le prodduit 
             //qui a la même référence grâce à la méthode trouver panier
@@ -44,9 +47,7 @@ public class Stock {
         
     }
     
-    
-
-    
+     
        public ArrayList<Produit> getListeProduit() {
         return listeProduit;
     }
