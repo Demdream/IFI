@@ -4,7 +4,21 @@
 <%@page import="Modele.Produit"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="stockSession" class="Modele.Stock" scope="session" ></jsp:useBean>>
+<jsp:useBean id="stockSession" class="Modele.Stock" scope="session" ></jsp:useBean>
+<jsp:useBean id="panierSession" class="Modele.Panier" scope="session" ></jsp:useBean> 
+
+
+ <%! 
+       Panier panier = new Panier();
+       Stock stock = new Stock();
+       boolean affichePopUp = false ;
+ %>
+ 
+                     <%-- Première session quand l'utilisateur clique sur le bouton ajouter panier, on dit qu'il doit faire
+                     appel à la méthode ajouter panier qui existe dans la classe Panier
+                     Deuxième session quand l'utilisateur clique sur le bouton passer commande
+                     on lui dit qu'il doit faire appel à la méthode modifier stock qui existe dans la classe Stock
+
 <jsp:useBean id="panierSession" class="Modele.Panier" scope="session" ></jsp:useBean> 
 
 
@@ -22,21 +36,20 @@
 <%       
     
               if (request.getParameter("reference") != null){
-              int ref = Integer.parseInt(request.getParameter("reference")); 
-             
-              panier = (Panier)session.getAttribute("panierSession");
-              stock = (Stock)session.getAttribute("stockSession");
-    //lorsque je clique sur le boutton ajouter au panier je récupère la référence du produit ensuite je récupère le panier et le stock qui se trouve dans la seesion 
-    // je vérifie que mon produit est bien disponible dans le stock  si c'est oui il l'ajoute sinon il affiche le POPUP
-    
-              boolean produitDisponible  = panier.verifierDisponibiliteProduit(ref , stock);
-              if ( produitDisponible ){
-                panier.ajouterAuPanier(ref);
-              session.setAttribute("panierSession", panier);  
-              }
-              else { 
-                  affichePopUp = true; 
-              }
+                int ref = Integer.parseInt(request.getParameter("reference")); 
+
+                panier = (Panier)session.getAttribute("panierSession");
+                stock = (Stock)session.getAttribute("stockSession");
+      //lorsque je clique sur le boutton ajouter au panier je récupère la référence du produit ensuite je récupère le panier et le stock qui se trouve dans la seesion 
+      // je vérifie que mon produit est bien disponible dans le stock  si c'est oui il l'ajoute sinon il affiche le POPUP
+                boolean produitDisponible  = panier.verifierDisponibiliteProduit(ref , stock);
+                if ( produitDisponible ){
+                  panier.ajouterAuPanier(ref);
+                  session.setAttribute("panierSession", panier);  
+                }
+                else { 
+                    affichePopUp = true; 
+                }
               }
       // quand je clique sur le bouton passer la commande, il mets à jour le stock et il vide le panier dans la session          
           if ( request.getParameter("panier") != null){
